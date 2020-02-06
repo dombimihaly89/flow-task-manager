@@ -52,5 +52,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-
+    public User findUserByPostId(Long id) {
+        return findPostById(id).getUser();
+    }
 }

@@ -1,6 +1,7 @@
 package hu.flowacademy.flowtaskmanager.services;
 
 import hu.flowacademy.flowtaskmanager.exceptions.ValidationException;
+import hu.flowacademy.flowtaskmanager.models.Post;
 import hu.flowacademy.flowtaskmanager.models.User;
 import hu.flowacademy.flowtaskmanager.models.userDTO.UserRegisterDTO;
 import hu.flowacademy.flowtaskmanager.repositories.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,6 +34,7 @@ public class UserService {
         return userRepository.findByUsername(name);
     }
 
+//        List<Post> listOfPosts = listOfUsers.stream().map(u -> u.getPosts().stream().filter(x -> x.getId() == id).map(y -> y.getUser()))
     public User saveUser(UserRegisterDTO userRegisterDTO) {
         User user = new User();
         if (userRegisterDTO.getId() == null) {

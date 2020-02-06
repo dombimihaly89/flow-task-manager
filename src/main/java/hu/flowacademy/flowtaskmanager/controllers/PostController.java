@@ -3,8 +3,12 @@ package hu.flowacademy.flowtaskmanager.controllers;
 import hu.flowacademy.flowtaskmanager.models.Post;
 import hu.flowacademy.flowtaskmanager.models.Task;
 import hu.flowacademy.flowtaskmanager.models.TaskDTO.TaskDTO;
+import hu.flowacademy.flowtaskmanager.models.User;
 import hu.flowacademy.flowtaskmanager.models.postDTO.PostDTO;
+import hu.flowacademy.flowtaskmanager.models.userDTO.UserRegisterDTO;
+import hu.flowacademy.flowtaskmanager.models.userDTO.UserResponseDTO;
 import hu.flowacademy.flowtaskmanager.services.PostService;
+import hu.flowacademy.flowtaskmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,9 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/findall")
     public ResponseEntity<List<PostDTO>> findAllPosts() {
@@ -41,6 +48,14 @@ public class PostController {
             return postDTO;
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listOfDTOs);
+    }
+
+    @GetMapping("/findUserByPostId/{id}")
+    public ResponseEntity<UserResponseDTO> findUserByPostId(@PathVariable Long id) {
+        User user = postService.findUserByPostId(id);
+        UserResponseDTO userDTO = new UserResponseDTO();
+        userDTO.userDTOFromUser(user);
+        return ResponseEntity.ok(userDTO);
     }
 
 
