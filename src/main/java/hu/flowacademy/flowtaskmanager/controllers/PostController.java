@@ -31,6 +31,18 @@ public class PostController {
         return ResponseEntity.ok(listOfDTOs);
     }
 
+    @GetMapping("/findPostsByTaskId/{id}")
+    public ResponseEntity<List<PostDTO>> findPostsByTaskId(@PathVariable Long id) {
+        List<Post> listOfPosts = postService.findPostsByTaskId(id);
+
+        List<PostDTO> listOfDTOs = listOfPosts.stream().map(p -> {
+            PostDTO postDTO = new PostDTO();
+            postDTO.postDTOfromPost(p);
+            return postDTO;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listOfDTOs);
+    }
+
 
     @PostMapping
     public ResponseEntity<PostDTO> saveTask(@RequestBody PostDTO postDTO) {

@@ -36,9 +36,10 @@ public class UserService {
         User user = new User();
         if (userRegisterDTO.getId() == null) {
             user.userFromUserDTO(userRegisterDTO);
-            usernameValidator(user);
-            passwordValidator(user);
-            roleValidator(user);
+            // usernameValidator(user);
+            // passwordValidator(user);
+            // roleValidator(user);
+            user.setRole(User.Role.MENTOR);
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         return userRepository.save(user);

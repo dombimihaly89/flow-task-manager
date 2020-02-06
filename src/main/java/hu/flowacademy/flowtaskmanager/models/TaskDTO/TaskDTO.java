@@ -51,7 +51,11 @@ public class TaskDTO {
             this.mentorId = task.getMentor().getId();
         } else this.mentorId = null;
         this.ratings = task.getRatings();
-        this.userIds = task.getUsers().stream().map(x -> x.getId()).collect(Collectors.toList());
+        if (task.getUsers() == null) {
+            this.userIds = null;
+        } else {
+            this.userIds = task.getUsers().stream().map(x -> x.getId()).collect(Collectors.toList());
+        }
         if (task.getPosts() == null) {
             this.postIds = null;
         } else {

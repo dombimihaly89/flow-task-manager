@@ -47,7 +47,7 @@ public class TaskService {
         mentorValidator(taskDTO);
         task.setMentor(userService.findUserById(taskDTO.getMentorId()));
         task.setCreatedAt(LocalDateTime.now());
-        task.setUsers(taskDTO.getUserIds().stream().map(x -> userService.findUserById(x)).collect(Collectors.toList()));
+        // task.setUsers(taskDTO.getUserIds().stream().map(x -> userService.findUserById(x)).collect(Collectors.toList()));
         return taskRepository.save(task);
     }
 

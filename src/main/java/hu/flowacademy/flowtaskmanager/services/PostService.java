@@ -33,6 +33,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> findPostsByTaskId(Long id) {
+        return postRepository.findByTask(id);
+    }
+
     public Post savePost(PostDTO postDTO) {
         Post post = new Post();
         post.postFromPostDTO(postDTO);

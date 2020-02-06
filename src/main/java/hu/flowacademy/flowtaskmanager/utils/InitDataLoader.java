@@ -8,6 +8,10 @@ import hu.flowacademy.flowtaskmanager.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
+import javax.annotation.PostConstruct;
 
 @Component
 @Transactional
@@ -18,6 +22,17 @@ public class InitDataLoader {
     private RatingRepository ratingRepository;
     private TaskRepository taskRepository;
     private UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
 
+
+    @PostConstruct
+    public void init() {
+
+        User user = new User();
+        user.setUsername("Misi");
+        user.setPassword(passwordEncoder.encode("123"));
+        user.setRole(User.Role.MENTOR);
+        userRepository.save(user);
+    }
 }
